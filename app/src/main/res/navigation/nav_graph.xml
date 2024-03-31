@@ -3,26 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/today">
+
+    <action
+        android:id="@+id/action_global_Today"
+        app:destination="@id/today" />
+
+    <action
+        android:id="@+id/action_global_Tomorrow"
+        app:destination="@id/tomorrow" />
+
+    <action
+        android:id="@+id/action_global_Total"
+        app:destination="@id/total" />
+
+    <action
+        android:id="@+id/action_global_Finished"
+        app:destination="@id/finished" />
+
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.georg.todos.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+        android:id="@+id/today"
+        android:name="com.georg.todos.List_Today"
+        android:label="@string/today"
+        tools:layout="@layout/fragment_list">
     </fragment>
+
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.georg.todos.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+        android:id="@+id/tomorrow"
+        android:name="com.georg.todos.List_Tomorrow"
+        android:label="@string/tomorrow"
+        tools:layout="@layout/fragment_list">
     </fragment>
+
+    <fragment
+        android:id="@+id/total"
+        android:name="com.georg.todos.List_Total"
+        android:label="@string/total"
+        tools:layout="@layout/fragment_list">
+    </fragment>
+
+    <fragment
+        android:id="@+id/finished"
+        android:name="com.georg.todos.List_Finished"
+        android:label="@string/finished"
+        tools:layout="@layout/fragment_list">
+    </fragment>
+
 </navigation>
