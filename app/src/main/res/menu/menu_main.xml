@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.georg.todos.MainActivity">
+    <item
+        android:id="@+id/today"
+        android:orderInCategory="100"
+        android:title="@string/today"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/tomorrow"
+        android:orderInCategory="100"
+        android:title="@string/tomorrow"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/total"
+        android:orderInCategory="100"
+        android:title="@string/total"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/finished"
+        android:orderInCategory="100"
+        android:title="@string/finished"
+        app:showAsAction="never" />
+</menu>
