@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.georg.todos.databinding.FragmentListBinding;
 
@@ -22,10 +21,10 @@ public class List_Today extends Fragment {
         binding = FragmentListBinding.inflate(inflater, container, false);
 
         FrameLayout todo;
-        todo = new Single_Todo(getContext());
+        todo = new SingleTodo(getContext());
         binding.list.addView(todo);
 
-        todo = new Single_Todo(getContext());
+        todo = new SingleTodo(getContext());
         binding.list.addView(todo);
 
         return binding.getRoot();
