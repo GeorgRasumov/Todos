@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private NavController navController;
 
+    private TodoItemManager todoItemManager = new TodoItemManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

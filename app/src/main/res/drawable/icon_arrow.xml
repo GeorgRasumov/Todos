@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/option_button_size"
+    android:height="@dimen/option_button_size"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+  <path
+      android:pathData="M10,20C15.51,20 20,15.51 20,10 20,4.49 15.51,0 10,0 4.49,0 0,4.49 0,10 0,15.51 4.49,20 10,20ZM8.21,7C7.92,6.71 7.92,6.23 8.21,5.94 8.36,5.79 8.55,5.72 8.74,5.72c0.19,0 0.38,0.07 0.53,0.22l3.53,3.53c0.29,0.29 0.29,0.77 0,1.06l-3.53,3.53c-0.29,0.29 -0.77,0.29 -1.06,0 -0.29,-0.29 -0.29,-0.77 0,-1.06l3,-3z"
+      android:fillColor="@color/option_buttons"/>
+</vector>

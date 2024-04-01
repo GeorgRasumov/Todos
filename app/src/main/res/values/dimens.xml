@@ -3,4 +3,6 @@
     <dimen name="todo_background_margin">5dp</dimen>
     <dimen name="todo_text_size">24sp</dimen>
     <dimen name="crossout_stickout">2dp</dimen>
+    <dimen name="option_button_size">50dp</dimen>
+    <dimen name="add_button_margin">10dp</dimen>
 </resources>

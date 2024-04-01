@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="todo_background">#00f5ff</color>
+    <color name="todo_background_selected">#0000ff</color>
+    <color name="option_buttons">#00f5ff</color>
 </resources>

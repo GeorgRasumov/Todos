@@ -1,0 +1,9 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/option_button_size"
+    android:height="@dimen/option_button_size"
+    android:viewportWidth="896"
+    android:viewportHeight="896">
+  <path
+      android:pathData="M448,0C200.6,0 0,200.6 0,448 0,695.4 200.6,896 448,896 695.4,896 896,695.4 896,448 896,200.6 695.4,0 448,0ZM624.5,585.7 L595.9,624.7a7.99,7.99 0,0 1,-11.2 1.7L419.3,505.8A7.92,7.92 0,0 1,416 499.3L416,224c0,-4.4 3.6,-8 8,-8h48.1c4.4,0 8,3.6 8,8v247.5l142.6,103.1c3.6,2.5 4.4,7.5 1.8,11.1z"
+      android:fillColor="@color/option_buttons"/>
+</vector>
