@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/todo_background"/> <!-- Farbe des Rechtecks -->
+    <corners android:radius="1000px"/> <!-- Eckenradius -->
+</shape>

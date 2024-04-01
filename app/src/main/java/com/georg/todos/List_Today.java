@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,14 +17,18 @@ public class List_Today extends Fragment {
     private FragmentListBinding binding;
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView( @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentListBinding.inflate(inflater, container, false);
-        return binding.getRoot();
 
+        FrameLayout todo;
+        todo = new Single_Todo(getContext());
+        binding.list.addView(todo);
+
+        todo = new Single_Todo(getContext());
+        binding.list.addView(todo);
+
+        return binding.getRoot();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
