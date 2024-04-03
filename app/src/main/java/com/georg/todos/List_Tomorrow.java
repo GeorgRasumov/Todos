@@ -11,29 +11,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.georg.todos.databinding.FragmentListBinding;
 
-public class List_Tomorrow extends Fragment {
-
-    private FragmentListBinding binding;
-
-    @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
-        binding = FragmentListBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
+public class List_Tomorrow extends ListBase {
 
 }

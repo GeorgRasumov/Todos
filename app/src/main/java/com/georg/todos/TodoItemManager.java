@@ -6,17 +6,17 @@ import java.util.List;
 public class TodoItemManager {
 
 
-    List<SingleTodoView> allTodos = new ArrayList<>();
+    List<ToDo> allTodos = new ArrayList<ToDo>();
 
     public TodoItemManager(){
 
     }
 
-    public void addTodo(SingleTodoView todo){
+    public void addTodo(ToDo todo){
         allTodos.add(todo);
     }
 
-    public List<SingleTodoView> getAllTodos(){
+    public List<ToDo> getAllTodos(){
         return allTodos;
     }
 
