@@ -8,11 +8,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-public class CrossOut extends View implements SingleTodoView.ToDoDoneChangeListener, TextWatcher{
+public class CrossOut extends View implements SingleTodo.ToDoDoneChangeListener, TextWatcher{
     private Paint paintLine;
     private EditText editText;
 
-    private boolean drawCrossout = true;
+    private boolean drawCrossout = false;
 
     // Constructor
     public CrossOut(Context context, EditText editText) {

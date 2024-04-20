@@ -1,36 +1,35 @@
-package com.georg.todos;
+package com.georg.todos.View;
 
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.georg.todos.R;
+import com.georg.todos.ViewModel.MainActivityViewModel;
 import com.georg.todos.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityView extends AppCompatActivity {
 
     //Holds information on how the NavigationUI should interact with the App Bar
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-
     private NavController navController;
 
-    private TodoItemManager todoItemManager = new TodoItemManager();
+    private MainActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        viewModel = new MainActivityViewModel();
 
         //A binding Class for each xml layout Object is automatically created. Binding classes provide direct references for views in that layout
         //getLayoutInflater returns an LayoutInflater Object which is used to instantiate XML-files to View Object
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         } else if ((id == R.id.finished)) {
             navController.navigate(R.id.action_global_Finished);
             return true;
+
         }
 
         return super.onOptionsItemSelected(item);

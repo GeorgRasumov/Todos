@@ -24,28 +24,28 @@
 
     <fragment
         android:id="@+id/today"
-        android:name="com.georg.todos.List_Today"
+        android:name="com.georg.todos.ListToday"
         android:label="@string/today"
         tools:layout="@layout/fragment_list">
     </fragment>
 
     <fragment
         android:id="@+id/tomorrow"
-        android:name="com.georg.todos.List_Tomorrow"
+        android:name="com.georg.todos.ListTomorrow"
         android:label="@string/tomorrow"
         tools:layout="@layout/fragment_list">
     </fragment>
 
     <fragment
         android:id="@+id/total"
-        android:name="com.georg.todos.List_Total"
+        android:name="com.georg.todos.ListTotal"
         android:label="@string/total"
         tools:layout="@layout/fragment_list">
     </fragment>
 
     <fragment
         android:id="@+id/finished"
-        android:name="com.georg.todos.List_Finished"
+        android:name="com.georg.todos.ListFinished"
         android:label="@string/finished"
         tools:layout="@layout/fragment_list">
     </fragment>

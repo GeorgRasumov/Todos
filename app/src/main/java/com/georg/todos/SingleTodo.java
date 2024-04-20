@@ -16,7 +16,7 @@ import com.georg.todos.databinding.SingleTodoBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleTodoView extends FrameLayout implements View.OnClickListener, View.OnLongClickListener {
+public class SingleTodo extends FrameLayout implements View.OnClickListener, View.OnLongClickListener {
     private SingleTodoBinding binding;
     private boolean done = false;
     private boolean isSelected = false;
@@ -26,7 +26,7 @@ public class SingleTodoView extends FrameLayout implements View.OnClickListener,
     private Button mainButton;
     SelectionStateProvider selectionStateProvider;
 
-    public SingleTodoView(Context context, SelectionStateProvider selectionStateProvider) {
+    public SingleTodo(Context context, SelectionStateProvider selectionStateProvider) {
         super(context);
         this.selectionStateProvider = selectionStateProvider;
         init(context);
@@ -170,5 +170,13 @@ public class SingleTodoView extends FrameLayout implements View.OnClickListener,
             return true;
         }
         return false;
+    }
+
+    public String getText(){
+        return editText.getText().toString();
+    }
+
+    public void setText(String text){
+        editText.setText(text);
     }
 }
