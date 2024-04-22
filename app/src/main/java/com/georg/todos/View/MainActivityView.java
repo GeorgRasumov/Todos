@@ -2,12 +2,11 @@ package com.georg.todos.View;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.georg.todos.R;
 import com.georg.todos.ViewModel.MainActivityViewModel;
@@ -16,21 +15,34 @@ import com.georg.todos.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivityView extends AppCompatActivity {
 
-    //Holds information on how the NavigationUI should interact with the App Bar
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-    private NavController navController;
+    private Map<Class, String> titleMap = new HashMap<Class, String>() {{
+        put(ListToday.class, "Heute");
+        put(ListTomorrow.class, "Morgen");
+        put(ListTotal.class, "Gesamt");
+        put(ListFinished.class, "Erldeigt");
+    }};
 
+    //Holds information on how the NavigationUI should interact with the App Bar
+    private ActivityMainBinding binding;
+    //private NavController navController;
     private MainActivityViewModel viewModel;
+
+    private void setFragment(Class<? extends Fragment> fragmentclass){
+        String title = titleMap.get(fragmentclass);
+        getSupportActionBar().setTitle(title);
+        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), fragmentclass, null).commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = new MainActivityViewModel();
-
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         //A binding Class for each xml layout Object is automatically created. Binding classes provide direct references for views in that layout
         //getLayoutInflater returns an LayoutInflater Object which is used to instantiate XML-files to View Object
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -41,11 +53,22 @@ public class MainActivityView extends AppCompatActivity {
         //set a toolbar as the Action bar for this activity
         setSupportActionBar(binding.toolbar);
 
-        //the NavController is used to Navigate through the different Screens
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        //These Methods are used to make the toolbar interact with the navigation Controller
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled */) {
+            @Override
+            public void handleOnBackPressed() {
+                viewModel.onBackPressed();
+            }
+        };
+
+        getOnBackPressedDispatcher().addCallback(this, callback);
+
+
+        viewModel.getCurrentFrag().observe(this, this::setFragment);
+        viewModel.getCloseApp().observe(this, v -> finish());
+
+
+        viewModel.onViewCreated();
+
     }
 
     @Override
@@ -62,29 +85,8 @@ public class MainActivityView extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.today) {
-            navController.navigate(R.id.action_global_Today);
-            return true;
-        } else if ((id == R.id.tomorrow)) {
-            navController.navigate(R.id.action_global_Tomorrow);
-            return true;
-        } else if ((id == R.id.total)) {
-            navController.navigate(R.id.action_global_Total);
-            return true;
-        } else if ((id == R.id.finished)) {
-            navController.navigate(R.id.action_global_Finished);
-            return true;
-
-        }
+        viewModel.onOptionsItemSelected(id);
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        //alternative to NavController.navigateUp() when appBarConfiguration must be considered
-        navController.navigate(R.id.action_global_Today);
-        return true;
     }
 }

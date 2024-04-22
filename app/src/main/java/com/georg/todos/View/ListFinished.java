@@ -1,4 +1,4 @@
-package com.georg.todos;
+package com.georg.todos.View;
 
 public class ListFinished extends ListBase {
 

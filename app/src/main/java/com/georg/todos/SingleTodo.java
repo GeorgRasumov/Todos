@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import com.georg.todos.databinding.SingleTodoBinding;
+import com.georg.todos.types.SelectionStateProvider;
 
 import java.util.ArrayList;
 import java.util.List;

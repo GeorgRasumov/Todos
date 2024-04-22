@@ -10,6 +10,7 @@ Put the CoordinatorLayout inside a relative Layout, because CoordinatorLayout do
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true" >
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +32,11 @@ Put the CoordinatorLayout inside a relative Layout, because CoordinatorLayout do
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <include layout="@layout/content_main" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>
