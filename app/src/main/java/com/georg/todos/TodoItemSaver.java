@@ -3,6 +3,8 @@ package com.georg.todos;
 import android.content.Context;
 import android.util.Log;
 
+import com.georg.todos.types.SelectionStateProvider;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
