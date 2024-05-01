@@ -1,15 +1,10 @@
 package com.georg.todos.viewModels;
 
-import android.view.View;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.georg.todos.R;
-import com.georg.todos.models.Todo;
 import com.georg.todos.types.SingleLiveEvent;
-import com.georg.todos.views.ToDoView;
 import com.georg.todos.types.BottomMenus;
 
 import java.util.ArrayList;
@@ -17,7 +12,7 @@ import java.util.List;
 
 public class TodoListViewModel extends ViewModel {
 
-    private List<Todo> todos = new ArrayList<Todo>();
+    private List<TodoViewModelModifier> todos = new ArrayList<>();
     private SingleLiveEvent<Void> toDoListChanged = new SingleLiveEvent<>();
     private MutableLiveData<BottomMenus> currentMenu = new MutableLiveData<>(BottomMenus.ADD);
 
@@ -27,8 +22,8 @@ public class TodoListViewModel extends ViewModel {
         return toDoListChanged;
     }
 
-    public List<ITodoViewModel> getTodoViewModels() {
-        List<ITodoViewModel> todoViewModels = new ArrayList<>(todos);
+    public List<TodoViewModel> getTodoViewModels() {
+        List<TodoViewModel> todoViewModels = new ArrayList<>(todos);
         return todoViewModels;
     }
 
@@ -56,17 +51,17 @@ public class TodoListViewModel extends ViewModel {
 
     }
 
-    public void onTodoEditClicked(Todo todo){
+    public void onTodoEditClicked(TodoViewModel todo){
 
     }
 
-    public void onTodoTextLongClicked(Todo todo){
+    public void onTodoTextLongClicked(TodoViewModel todo){
 
     }
 
     int id = 0;
     private void addTodo(){
-        Todo todo = new Todo(id, this);
+        TodoViewModelModifier todo = new TodoViewModelModifier(id, this);
         id++;
         todos.add(todo);
         toDoListChanged.call();

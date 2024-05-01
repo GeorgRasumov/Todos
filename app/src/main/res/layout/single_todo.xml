@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.georg.todos.viewModels.ITodoViewModel" />
+            type="com.georg.todos.viewModels.TodoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

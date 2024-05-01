@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.georg.todos.viewModels.ITodoViewModel;
 import com.georg.todos.viewModels.TodoListViewModel;
 import com.georg.todos.databinding.AddBarBinding;
 import com.georg.todos.databinding.FragmentListBinding;
 import com.georg.todos.databinding.OptionsBarBinding;
 import com.georg.todos.types.BottomMenus;
+import com.georg.todos.viewModels.TodoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +55,11 @@ public class ToDoListView extends Fragment{
     }
 
     private void onTodosChanged(Void aVoid) {
-        List<ITodoViewModel>  viewModels = viewModel.getTodoViewModels();
-        List<ITodoViewModel>  newViewModels = new ArrayList<>(viewModels);
+        List<TodoViewModel>  viewModels = viewModel.getTodoViewModels();
+        List<TodoViewModel>  newViewModels = new ArrayList<>(viewModels);
         List<ToDoView>  oldViews = new ArrayList<>();
         for (ToDoView toDoView : toDoViews){
-            ITodoViewModel viewModel = toDoView.getViewModel();
+            TodoViewModel viewModel = toDoView.getViewModel();
             if (viewModels.contains(viewModel)){
                 newViewModels.remove(viewModel);
             }
@@ -67,7 +67,7 @@ public class ToDoListView extends Fragment{
                 oldViews.add(toDoView);
             }
         }
-        for (ITodoViewModel viewModel : newViewModels){
+        for (TodoViewModel viewModel : newViewModels){
             addTodo(viewModel);
         }
         for (ToDoView toDoView : oldViews){
@@ -76,7 +76,7 @@ public class ToDoListView extends Fragment{
         }
     }
 
-    private void addTodo(ITodoViewModel toDoViewModel){
+    private void addTodo(TodoViewModel toDoViewModel){
         ToDoView toDoView = new ToDoView(getContext(), toDoViewModel, getViewLifecycleOwner());
         toDoViews.add(toDoView);
         binding.list.addView(toDoView);

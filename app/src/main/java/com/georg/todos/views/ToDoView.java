@@ -13,24 +13,24 @@ import android.widget.ImageButton;
 import androidx.lifecycle.LifecycleOwner;
 
 import com.georg.todos.R;
-import com.georg.todos.viewModels.ITodoViewModel;
 import com.georg.todos.databinding.SingleTodoBinding;
+import com.georg.todos.viewModels.TodoViewModel;
 
 public class ToDoView extends FrameLayout{
     private SingleTodoBinding binding;
-    private ITodoViewModel viewModel;
+    private TodoViewModel viewModel;
     private CrossOut crossout;
     private EditText editText;
     private int id;
 
-    public ToDoView(Context context, ITodoViewModel viewModel, LifecycleOwner lifecycleOwner) {
+    public ToDoView(Context context, TodoViewModel viewModel, LifecycleOwner lifecycleOwner) {
         super(context);
         this.viewModel = viewModel;
         init(context);
         viewModel.getDoneLiveData().observe(lifecycleOwner, this::setDone);
     }
 
-    public ITodoViewModel getViewModel() {
+    public TodoViewModel getViewModel() {
         return viewModel;
     }
 
