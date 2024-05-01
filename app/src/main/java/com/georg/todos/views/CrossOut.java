@@ -1,4 +1,4 @@
-package com.georg.todos;
+package com.georg.todos.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,7 +8,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-public class CrossOut extends View implements SingleTodo.ToDoDoneChangeListener, TextWatcher{
+import com.georg.todos.R;
+
+public class CrossOut extends View implements TextWatcher{
     private Paint paintLine;
     private EditText editText;
 
@@ -22,6 +24,11 @@ public class CrossOut extends View implements SingleTodo.ToDoDoneChangeListener,
 
     }
 
+    public void setDrawCrossout(boolean drawCrossout){
+        this.drawCrossout = drawCrossout;
+        invalidate();
+    }
+
     private void init() {
         // Initialize Paint object
         paintLine = new Paint();
@@ -31,6 +38,7 @@ public class CrossOut extends View implements SingleTodo.ToDoDoneChangeListener,
         //adapt the line width to text changes
         editText.addTextChangedListener(this);
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -45,19 +53,9 @@ public class CrossOut extends View implements SingleTodo.ToDoDoneChangeListener,
     }
 
     @Override
-    public void onToDoStatusChanged(boolean done) {
-        this.drawCrossout = !done;
-        invalidate();
-    }
-
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
     @Override
-    public void afterTextChanged(Editable s) {
-        invalidate();
-    }
-
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {} //Empty
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {} //Empty
-
+    public void afterTextChanged(Editable s) {invalidate();}
 }
