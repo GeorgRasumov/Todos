@@ -29,7 +29,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
     @MainThread
     @Override
     public void setValue(T t) {
-        mPending.set(true);
+        mPending.set(true);//sdfsdf
         super.setValue(t);
     }
 
