@@ -1,4 +1,4 @@
-package com.georg.todos.View;
+package com.georg.todos.views;
 
 import android.os.Bundle;
 
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.georg.todos.R;
-import com.georg.todos.ViewModel.MainActivityViewModel;
+import com.georg.todos.viewModels.MainActivityViewModel;
 import com.georg.todos.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -42,7 +42,8 @@ public class MainActivityView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        ViewModelProvider viewModelProvider = new ViewModelProvider(this);
+        viewModel = viewModelProvider.get(MainActivityViewModel.class);
         //A binding Class for each xml layout Object is automatically created. Binding classes provide direct references for views in that layout
         //getLayoutInflater returns an LayoutInflater Object which is used to instantiate XML-files to View Object
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -63,9 +64,8 @@ public class MainActivityView extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, callback);
 
 
-        viewModel.getCurrentFrag().observe(this, this::setFragment);
-        viewModel.getCloseApp().observe(this, v -> finish());
-
+        viewModel.getCurrentFragmentLiveData().observe(this, this::setFragment);
+        viewModel.getCloseAppEvent().observe(this, v -> finish());
 
         viewModel.onViewCreated();
 
