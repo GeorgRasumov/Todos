@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.georg.todos.viewModels.TodoListViewModel" />
+            type="com.georg.todos.features.todoList.TodoListViewModel" />
     </data>
 
 
@@ -24,7 +24,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/delete_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onReminderClicked()}"/>
 
         <ImageButton
             android:id="@+id/delete_button"
@@ -36,7 +37,8 @@
             app:layout_constraintLeft_toRightOf="@id/reminder_button"
             app:layout_constraintRight_toLeftOf="@id/move_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> viewModel.onDeleteClicked()}"/>
 
         <ImageButton
             android:id="@+id/move_button"
@@ -48,7 +50,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/delete_button"/>
+            app:layout_constraintLeft_toRightOf="@id/delete_button"
+            android:onClick="@{() -> viewModel.onMoveClicked()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

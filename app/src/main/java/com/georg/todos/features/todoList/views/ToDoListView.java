@@ -1,4 +1,4 @@
-package com.georg.todos.views;
+package com.georg.todos.features.todoList.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.georg.todos.viewModels.TodoListViewModel;
+import com.georg.todos.features.singleTodo.ToDoView;
+import com.georg.todos.features.todoList.TodoListViewModel;
 import com.georg.todos.databinding.AddBarBinding;
 import com.georg.todos.databinding.FragmentListBinding;
 import com.georg.todos.databinding.OptionsBarBinding;
 import com.georg.todos.types.BottomMenus;
-import com.georg.todos.viewModels.TodoViewModel;
+import com.georg.todos.features.singleTodo.TodoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,4 +104,5 @@ public class ToDoListView extends Fragment{
                 break;
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.georg.todos.types;
+package com.georg.todos.misc;
 
 import androidx.annotation.MainThread;
 import androidx.lifecycle.LifecycleOwner;

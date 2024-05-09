@@ -1,5 +1,7 @@
-package com.georg.todos.views;
+package com.georg.todos.features.mainActivity;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -9,35 +11,33 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.georg.todos.R;
-import com.georg.todos.viewModels.MainActivityViewModel;
+import com.georg.todos.models.ModelProvider;
 import com.georg.todos.databinding.ActivityMainBinding;
+import com.georg.todos.types.TodoTypes;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivityView extends AppCompatActivity {
 
-    private Map<Class, String> titleMap = new HashMap<Class, String>() {{
-        put(ListToday.class, "Heute");
-        put(ListTomorrow.class, "Morgen");
-        put(ListTotal.class, "Gesamt");
-        put(ListFinished.class, "Erldeigt");
+    private Map<TodoTypes, String> titleMap = new HashMap<TodoTypes, String>() {{
+        put(TodoTypes.TODAY, "Heute");
+        put(TodoTypes.TOMORROW, "Morgen");
+        put(TodoTypes.TOTAL,  "Gesamt");
+        put(TodoTypes.FINISHED, "Erldeigt");
     }};
 
     //Holds information on how the NavigationUI should interact with the App Bar
     private ActivityMainBinding binding;
     //private NavController navController;
     private MainActivityViewModel viewModel;
-
-    private void setFragment(Class<? extends Fragment> fragmentclass){
-        String title = titleMap.get(fragmentclass);
-        getSupportActionBar().setTitle(title);
-        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), fragmentclass, null).commit();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +65,10 @@ public class MainActivityView extends AppCompatActivity {
 
 
         viewModel.getCurrentFragmentLiveData().observe(this, this::setFragment);
+        viewModel.getCurrentTitleLiveData().observe(this, this::updateTitile);
         viewModel.getCloseAppEvent().observe(this, v -> finish());
 
-        viewModel.onViewCreated();
-
+        viewModel.onViewCreated(getApplicationContext());
     }
 
     @Override
@@ -77,7 +77,6 @@ public class MainActivityView extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -89,4 +88,37 @@ public class MainActivityView extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Hide the keyboard when the user clicks outside of an EditText
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        viewModel.onDestroy();
+    }
+
+    private void setFragment(Class<? extends Fragment> fragmentclass){
+        getSupportFragmentManager().beginTransaction().replace(binding.fragmentContainer.getId(), fragmentclass, null).commit();
+    }
+
+    private void updateTitile(String title){
+        getSupportActionBar().setTitle(title);
+    }
+
 }

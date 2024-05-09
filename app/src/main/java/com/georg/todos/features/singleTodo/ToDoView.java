@@ -1,33 +1,31 @@
-package com.georg.todos.views;
+package com.georg.todos.features.singleTodo;
 
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 
 import androidx.lifecycle.LifecycleOwner;
 
 import com.georg.todos.R;
 import com.georg.todos.databinding.SingleTodoBinding;
-import com.georg.todos.viewModels.TodoViewModel;
+import com.georg.todos.features.todoList.views.CrossOutView;
 
 public class ToDoView extends FrameLayout{
     private SingleTodoBinding binding;
     private TodoViewModel viewModel;
-    private CrossOut crossout;
+    private CrossOutView crossout;
     private EditText editText;
     private int id;
 
     public ToDoView(Context context, TodoViewModel viewModel, LifecycleOwner lifecycleOwner) {
         super(context);
         this.viewModel = viewModel;
-        init(context);
-        viewModel.getDoneLiveData().observe(lifecycleOwner, this::setDone);
+        init(context, lifecycleOwner);
     }
 
     public TodoViewModel getViewModel() {
@@ -36,10 +34,6 @@ public class ToDoView extends FrameLayout{
 
     public void setDone(boolean done) {
         crossout.setDrawCrossout(done);
-    }
-
-    public void setText(String text){
-        editText.setText(text);
     }
 
     @Override
@@ -52,12 +46,13 @@ public class ToDoView extends FrameLayout{
         }
     }
 
-    private void init(Context context) {
+    private void init(Context context, LifecycleOwner lifecycleOwner) {
         // Inflate the layout with View Binding
         binding = SingleTodoBinding.inflate(LayoutInflater.from(context), this, true);
         binding.setViewModel(viewModel);
 
         editText = binding.todoText;
+        editText.setFocusableInTouchMode(false);
 
         //Set the layout params for the parent frame layout
         int list_margin = (int) getResources().getDimension(R.dimen.todo_list_margin);
@@ -75,9 +70,36 @@ public class ToDoView extends FrameLayout{
         binding.getRoot().setLayoutParams(layoutParams_background);
 
         //Initialize the Crossout
-        crossout = new CrossOut(context, editText);
+        crossout = new CrossOutView(context, editText);
         binding.singleTodo.addView(crossout);
 
+        viewModel.getDoneLiveData().observe(lifecycleOwner, this::setDone);
+        viewModel.getEditTextEvent().observe(lifecycleOwner, aVoid -> onEditTextEvent());
+        viewModel.getSelectedLiveData().observe(lifecycleOwner, this::setSelected);
+        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                onEditTextFocusChange(v, hasFocus);
+            }
+        });
+    }
+
+    private void onEditTextFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus){
+            if (!hasFocus){
+                editText.setFocusableInTouchMode(false);
+                binding.mainButton.bringToFront();
+            }
+        }
+    }
+
+    private void onEditTextEvent(){
+        editText.bringToFront();
+        editText.setFocusableInTouchMode(true);
+        editText.requestFocus();
+        editText.setSelection(editText.getText().length());
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
 

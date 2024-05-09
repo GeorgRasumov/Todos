@@ -6,7 +6,7 @@
     <data>
         <variable
             name="temp"
-            type="com.georg.todos.viewModels.TodoListViewModel" />
+            type="com.georg.todos.features.todoList.TodoListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

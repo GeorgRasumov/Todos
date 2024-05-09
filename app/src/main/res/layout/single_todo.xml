@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.georg.todos.viewModels.TodoViewModel" />
+            type="com.georg.todos.features.singleTodo.TodoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,18 +30,19 @@
         <EditText
             android:id="@+id/todo_text"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:background="@null"
             android:focusable="false"
             android:includeFontPadding="false"
             android:inputType="text"
-            android:text="Random Text"
+            android:text="@{viewModel.getTextLiveData}"
             android:textSize="@dimen/todo_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/edit"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:onTextChanged="@{(s, start, before, count) -> viewModel.onTextChanged(s, start, before, count)}"/>
 
         <Button
             android:id="@+id/main_button"

@@ -1,9 +1,10 @@
-package com.georg.todos.misc;
+package com.georg.todos.models;
 
 import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,11 +14,7 @@ import java.nio.charset.StandardCharsets;
 
 public class DataHandler {
 
-    Context context;
-
-    public DataHandler(Context context){
-        this.context = context;
-    }
+    private Context context;
 
     public void safeString(String safeString, String filename){
         try {
@@ -49,10 +46,16 @@ public class DataHandler {
         } finally {
             contents = stringBuilder.toString();
         }
-        Log.d("MyTest", contents);
         return contents;
     }
 
+    public boolean fileExists(String filename) {
+        File file = new File(context.getFilesDir(), filename);
+        return file.exists();
+    }
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
 }

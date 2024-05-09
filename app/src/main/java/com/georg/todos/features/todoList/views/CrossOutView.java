@@ -1,4 +1,4 @@
-package com.georg.todos.views;
+package com.georg.todos.features.todoList.views;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,14 +10,14 @@ import android.widget.EditText;
 
 import com.georg.todos.R;
 
-public class CrossOut extends View implements TextWatcher{
+public class CrossOutView extends View implements TextWatcher{
     private Paint paintLine;
     private EditText editText;
 
     private boolean drawCrossout = false;
 
     // Constructor
-    public CrossOut(Context context, EditText editText) {
+    public CrossOutView(Context context, EditText editText) {
         super(context);
         this.editText = editText;
         init();
