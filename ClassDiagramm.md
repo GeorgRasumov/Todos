@@ -9,49 +9,105 @@ classDiagram
 direction RL
 
     class TodoItem {
-        + Int id
-        + Int Date
-        + Int Position
-        + String title
-        + String description
-        + Boolean isCompleted
-        + Boolean waiting
+        + mutableDateType
+        + observableDateType
+        + mutablePosition
+        + observablePosition
+        + mutableTitle
+        + observableTitle
+        + mutableDescription
+        + observableDescription
+        + mutableIsCompleted
+        + observableIsCompleted
+        + getId()
     }
 
     class IReadTodoItem {
+        + observablePosition
+        + observableTitle
+        + observableDescription
+        + observableIsCompleted
         + getId()
-        + getDate()
-        + getPosition()
-        + getTitle()
-        + getDescription()
-        + getIsCompleted()
-        + getIsWaiting()
+    }
+
+    class TodoRepository{
+        + addGetTodosCallback(Callable)
+        + removeGetTodosCallback(Callable)
+        + getTodoList(dateType)
+        + getTodo(id)
+        + addTodo(title, dateType, position)
+        + editTitle(id, newTitle)
+        + editDateType(id, newDateType)
+        + editPosition(id, newPosition)
+        + editDescription(id, newDescription)
+        + editIsCompleted(id, isCompleted)
+        + deleteTodo(id)
+    }
+
+    class TodoItemList{
+        + TodoDeletedEvent
+        + TodoCreatedEvent
+        + getReadableTodos()
+        + addTodo(RepetitiveTodo)
+        + removeTodo(id)
+    }
+
+    class IReadTodoItemList{
+        + TodoDeletedEvent
+        + TodoCreatedEvent
+        + getReadableTodos()
     }
 
     class RepetitiveTodo{
         - TodoItemIds
         - daysCreated
-        + id
-        + position
-        + title
-        + startDay
-        + type
-        + interval
+        + mutableTitle
+        + observableTitle
+        + mutableType
+        + observableType
+        + mutablePosition
+        + observablePosition
+        + mutableStartDate
+        + observableStartDate
+        + mutableIntervall
+        + observableIntervall
+        + getId()
     }
 
     class IReadRepetitiveTodo {
-        + getId()
-        + getDaysCreated()
-        + getId()
-        + getPosition()
-        + getTitle()
-        + getStartDate()
-        + getType()
-        + getIntervall()
+        + observableTitle
+        + observableType
+        + observablePosition
+        + observableStartDate
+        + observableIntervall
+        getId()
     }
 
     class RepetitiveTodoRepository{
+        - RepetitiveTodoList
+        + getReadableTodoList()
+        + getTodo(id)
+        + addTodo(title, repetitionType, position, startDay, intervall)
+        + editTitle(id, newTitle)
+        + editRepetitionType(id, newRepetitionType)
+        + editPosition(id, newPosition)
+        + editStartDay(id, newStartDay)
+        + editIntervall(id, newIntervall)
+        + deleteTodo(id)
+    }
 
+    class RepetitiveTodoList{
+        + TodoDeletedEvent
+        + TodoCreatedEvent
+        + getReadableTodos()
+        + addTodo(RepetitiveTodo)
+        + removeTodo(id)
+    }
+
+    class IReadRepetitiveTodoList{
+        + TodoDeletedEvent
+        + TodoCreatedEvent
+        + getReadableTodos()
     }
 
     class RepetitiveTodoHandler{
@@ -62,8 +118,6 @@ direction RL
 
     }
 
-    class TodoRepository{
-    }
 
     class MainActivity{
 
@@ -123,11 +177,11 @@ MainActivity --> RepetitiveTodoListView : creates & destroys
 RepetitiveTodo ..|> IReadRepetitiveTodo : implements
 RepetitiveTodoHandler ..> RepetitiveTodoRepository : observes & calls
 RepetitiveTodoHandler ..> TodoRepository : observes & calls
-RepetitiveTodoList ..|> IRepetitiveTodoReadList : inmplements
+RepetitiveTodoList ..|> IReadRepetitiveTodoList : inmplements
 RepetitiveTodoListView --> RepetitiveTodoListViewModel : observes & calls
 RepetitiveTodoListView --> RepetitiveTodoView : creates
 RepetitiveTodoListViewModel --> RepetitiveTodoRepository : observes & calls
-RepetitiveTodoListViewModel --> IRepetitiveTodoReadList : observes
+RepetitiveTodoListViewModel --> IReadRepetitiveTodoList : observes
 RepetitiveTodoList .. RepetitiveTodo : has
 RepetitiveTodoRepository --> RepetitiveTodoList : updates
 RepetitiveTodoRepository --> RepetitiveTodo : updates
