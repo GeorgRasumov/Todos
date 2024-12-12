@@ -8,194 +8,145 @@ config:
 classDiagram
 direction RL
 
-%% TodoItem
-class TodoItem {
-    + Int id
-    + Int Date
-    + Int Position
-    + String title
-    + String description
-    + Boolean isCompleted
-    + Boolean waiting
-    + delete()
-}
-TodoItem ..|> ITodoItemRepository : "implements"
-TodoItem --> LoadSaveUtils : "uses"
+    class TodoItem {
+        + Int id
+        + Int Date
+        + Int Position
+        + String title
+        + String description
+        + Boolean isCompleted
+        + Boolean waiting
+    }
 
-%% ITodoItemRepository
-class ITodoItemRepository {
-    <<interface>>
-    + String title
-    + String description
-    + Boolean isCompleted
-    + getID()
-    + delete()
-}
+    class IReadTodoItem {
+        + getId()
+        + getDate()
+        + getPosition()
+        + getTitle()
+        + getDescription()
+        + getIsCompleted()
+        + getIsWaiting()
+    }
 
-%% RepetitiveTodo
-class RepetitiveTodo {
-    - TodoItemIds
-    - daysCreated
-    + id
-    + position
-    + title
-    + startDay
-    + type
-    + interval
-    + createTodoIfNeeded(date) : TodoItem
-    + delete()
-}
-RepetitiveTodo ..|> IRepetitiveTodoRepository : "implements"
-RepetitiveTodo --> LoadSaveUtils : "uses"
+    class RepetitiveTodo{
+        - TodoItemIds
+        - daysCreated
+        + id
+        + position
+        + title
+        + startDay
+        + type
+        + interval
+    }
 
-%% IRepetitiveTodoRepository
-class IRepetitiveTodoRepository {
-    <<interface>>
-    + title
-    + startDay
-    + type
-    + interval
-    + getID()
-    + delete()
-}
+    class IReadRepetitiveTodo {
+        + getId()
+        + getDaysCreated()
+        + getId()
+        + getPosition()
+        + getTitle()
+        + getStartDate()
+        + getType()
+        + getIntervall()
+    }
 
-%% RepetitiveTodoHandler
-class RepetitiveTodoHandler {
-    + getRepetitiveTodos()
-    + createRepetitiveTodo()
-    + createTodoItems(Day)
-}
-RepetitiveTodoHandler ..|> IRepetitiveTodoHandlerRepository : "implements"
-RepetitiveTodoHandler --> RepetitiveTodo : "manages"
-RepetitiveTodoHandler --> ITodoHandlerRepository : "calls"
+    class RepetitiveTodoRepository{
 
-%% IRepetitiveTodoHandlerRepository
-class IRepetitiveTodoHandlerRepository {
-    <<interface>>
-    + createTodo()
-    + getTodos() : IRepetitiveTodo
-}
+    }
 
-%% TodoHandler
-class TodoHandler {
-    + getTodoIds(Date = None) : List<Int> TodoId
-    + getTodo(TodoId)
-    + createToDo(): TodoId
-    + changeTodoPosition(Date, Id, newPosition)
-}
-TodoHandler ..|> ITodoHandlerRepository : "implements"
-TodoHandler --> TodoItem : "manages"
-TodoHandler --> IRepetitiveTodoHandlerRepository : "calls"
+    class RepetitiveTodoHandler{
 
-%% ITodoHandlerRepository
-class ITodoHandlerRepository {
-    <<interface>>
-    + getTodoIds(Date = None) : List<Int> TodoId
-    + getTodo(TodoId)
-    + createToDo(): TodoId
-}
+    }
 
-%% LoadSaveUtils
-class LoadSaveUtils {
-    + getUnusedId() : Id
-    + updateTodo(Todo)
-    + deleteTodo(Id)
-    + getTodos(day) : TodoItem
+    class TodoHandler{
 
-    + getUnusedRepId() : Id
-    + updateRepTodo(RepetitiveTodo)
-    + deleteRepTodo(Id)
-    + getRepTodos() : List<RepetitiveTodo
-}
+    }
 
-%% CalenderTodoViewModelSharedRepositoryView
-class TodoViewModelSharedRepository {
-    - TodoViewModels
-    - TodoListViewModel
-    + Event : deletePressedEvent
-    + Event : changeDatePressedEvent<Date>
-    + Event : selectionStateChangedEvent<int>
-    + Observable : currentMode
-    + addTodoViewModel()
-    + removeTodoViewModel()
-}
+    class TodoRepository{
+    }
 
-%% MainActivity
-class MainActivity {
-    item
-}
-MainActivity --> MainViewModel : observes & calls
-MainActivity --> BaseListView : creates
-MainActivity --> CalenderView : creates
-MainActivity --> RepetitiveTodoListView : creates
+    class MainActivity{
 
-%% MainViewModel
-class MainViewModel {
-    item
-}
+    }
 
-%% BaseListView
-class BaseListView {
-    item
-}
-BaseListView --> BaseListViewModel : observes & calls
-BaseListView --> TodoItemView : observes & calls
+    class MainViewModel{
 
-%% BaseListViewModel
-class BaseListViewModel {
-    item
-}
-BaseListViewModel --> ITodoHandlerRepository : observes & calls
-BaseListViewModel --> TodoViewModelSharedRepository : observes
+    }
 
-%% TodoItemView
-class TodoItemView {
-    item
-}
-TodoItemView --> TodoItemViewModel : observes & calls
+    class TodoItemListView{
 
-%% TodoItemViewModel
-class TodoItemViewModel {
-    item
-}
-TodoItemViewModel --> ITodoItemRepository : observes & calls
-TodoItemViewModel --> TodoViewModelSharedRepository : observes
+    }
 
-%% RepetitiveTodoListView
-class RepetitiveTodoListView {
-    item
-}
-RepetitiveTodoListView --> RepetitiveTodoListViewModel : observes & calls
+    class TodoItemListViewModel{
 
-%% RepetitiveTodoListViewModel
-class RepetitiveTodoListViewModel {
-    item
-}
-RepetitiveTodoListViewModel --> IRepetitiveTodoHandlerRepository : observes & calls
-RepetitiveTodoListViewModel --> RepetitiveTodoView : creates
+    }
 
+    class TodoItemView{
 
-%%RepetitieTodoView
-class RepetitiveTodoView{
-    item
-}
-RepetitiveTodoView --> RepetitiveTodoViewModel : observes & calls
+    }
 
+    class TodoItemViewModel{
 
-class RepetitiveTodoViewModel{
-    item
-}
-RepetitiveTodoViewModel --> IRepetitiveTodoRepository : observes & calls
+    }
 
-%% CalenderView
-class CalenderView {
-    item
-}
+    class RepetitiveTodoListView{
+
+    }
+
+    class RepetitiveTodoListViewModel{
+
+    }
+
+    class RepetitiveTodoView{
+
+    }
+
+    class RepetitiveTodoViewModel{
+
+    }
+
+    class CalenderView{
+
+    }
+
+    class CalenderViewModel{
+
+    }
+
+    %% Relationships
 CalenderView --> CalenderViewModel : observes & calls
-CalenderView --> BaseListView : handles
+CalenderView --> TodoItemListView : creates & destroys
+MainActivity --> MainViewModel : observes & calls
+MainActivity --> CalenderView : creates & destroys
+MainActivity --> TodoItemListView : creates & destroys
+MainActivity --> RepetitiveTodoListView : creates & destroys
+RepetitiveTodo ..|> IReadRepetitiveTodo : implements
+RepetitiveTodoHandler ..> RepetitiveTodoRepository : observes & calls
+RepetitiveTodoHandler ..> TodoRepository : observes & calls
+RepetitiveTodoList ..|> IRepetitiveTodoReadList : inmplements
+RepetitiveTodoListView --> RepetitiveTodoListViewModel : observes & calls
+RepetitiveTodoListView --> RepetitiveTodoView : creates
+RepetitiveTodoListViewModel --> RepetitiveTodoRepository : observes & calls
+RepetitiveTodoListViewModel --> IRepetitiveTodoReadList : observes
+RepetitiveTodoList .. RepetitiveTodo : has
+RepetitiveTodoRepository --> RepetitiveTodoList : updates
+RepetitiveTodoRepository --> RepetitiveTodo : updates
+RepetitiveTodoView --> RepetitiveTodoViewModel : observes & calls
+RepetitiveTodoViewModel --> RepetitiveTodoListViewModel : observes & calls
+RepetitiveTodoViewModel --> IReadRepetitiveTodo : observes
+TodoHandler ..> TodoRepository : observes & calls
+TodoItem ..|> IReadTodoItem : implements
+TodoItemView --> TodoItemViewModel : observes & calls
+TodoItemViewModel --> IReadTodoItem : observes
+TodoItemViewModel --> BaseListViewModel : observes & calls
+TodoItemList .. IReadTodoItem : has
+TodoItemList ..|> IReadTodoItemList : implements
+TodoItemListView --> TodoItemListViewModel : observes & calls
+TodoItemListView --> TodoItemView : creates
+TodoItemListViewModel --> TodoRepository : observes & calls
+TodoItemListViewModel --> IReadTodoItemList : observes
 
-%% CalenderViewModel
-class CalenderViewModel {
-    item
-}
-CalenderViewModel --> ITodoHandlerRepository : observes
+TodoRepository --> TodoItem : updates
+TodoRepository --> TodoItemList : updates
+
+
